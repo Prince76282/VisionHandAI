@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties — Dark Mode (default) ───────────────────────── */
+:root {
+  color-scheme: dark;
+
+  /* Base Backgrounds */
+  --color-background: 10 13 20;         /* #0a0d14 — deep space black */
+  --color-surface: 18 24 38;            /* #121826 — card surface */
+  --color-surface-deep: 10 13 20;       /* #0a0d14 — deeper inset */
+
+  /* Borders */
+  --color-border: 31 41 61;             /* #1f293d */
+
+  /* Text */
+  --color-foreground: 241 245 249;      /* #f1f5f9 — near white */
+  --color-muted-foreground: 100 116 139; /* #64748b — slate-500 */
+
+  /* Accent — Cyan */
+  --color-accent: 6 182 212;            /* #06b6d4 — cyan-500 */
+  --color-accent-foreground: 2 6 23;    /* #020617 — near black on accent */
+
+  /* Header */
+  --header-bg: rgba(2, 6, 23, 0.85);
+  --header-border: rgba(31, 41, 61, 0.8);
+}
+
+/* ─── CSS Custom Properties — Light Mode ────────────────────────────────── */
+.light {
+  color-scheme: light;
+
+  --color-background: 248 250 252;      /* #f8fafc — slate-50 */
+  --color-surface: 255 255 255;         /* #ffffff — white cards */
+  --color-surface-deep: 241 245 249;    /* #f1f5f9 — slate-100 */
+
+  --color-border: 226 232 240;          /* #e2e8f0 — slate-200 */
+
+  --color-foreground: 15 23 42;         /* #0f172a — slate-900 */
+  --color-muted-foreground: 100 116 139; /* #64748b — slate-500 */
+
+  --color-accent: 99 102 241;           /* #6366f1 — indigo-500 */
+  --color-accent-foreground: 255 255 255; /* white on accent */
+
+  --header-bg: rgba(255, 255, 255, 0.92);
+  --header-border: rgba(226, 232, 240, 0.9);
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-surface-deep));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-muted-foreground));
+}
+
+/* ─── Glassmorphic card utility ──────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(var(--color-surface) / 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--color-border) / 0.6);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06);
+}
+
+.glass-panel-interactive {
+  background: rgba(var(--color-surface) / 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--color-border) / 0.5);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-interactive:hover {
+  border-color: rgba(var(--color-accent) / 0.4);
+  box-shadow: 0 4px 20px -2px rgba(var(--color-accent) / 0.15);
+}
+
+/* ─── HUD Glowing accents ────────────────────────────────────────────────── */
+.neon-border-cyan {
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.6);
+}
+
+.light .neon-border-cyan {
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.25), 0 2px 8px rgba(15, 23, 42, 0.08);
+  border-color: rgba(99, 102, 241, 0.45);
+}
+
+.neon-border-magenta {
+  box-shadow: 0 0 15px rgba(247, 37, 133, 0.35), inset 0 0 15px rgba(247, 37, 133, 0.1);
+  border-color: rgba(247, 37, 133, 0.6);
+}
+
+.neon-text-glow {
+  text-shadow: 0 0 8px currentColor;
+}
+
+.light .neon-text-glow {
+  text-shadow: none;
+  font-weight: 700;
+}
+
+/* ─── Light mode header ──────────────────────────────────────────────────── */
+.app-header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+/* ─── Slide-in for object cards ──────────────────────────────────────────── */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.animate-in {
+  animation-fill-mode: both;
+}
+.slide-in-from-left {
+  animation-name: slideInLeft;
+}
