@@ -82,93 +82,87 @@ export function App() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col transition-colors duration-300 ${isDark ? "dark bg-cyber-dark text-slate-100" : "light bg-background text-foreground"}`}
+      className={`min-h-screen flex flex-col transition-colors duration-200 ${
+        isDark
+          ? "bg-[#070B18] text-slate-100"
+          : "bg-[#F8FAFC] text-slate-900"
+      }`}
     >
       {/* ─── Top Navigation Header ─────────────────────────────────────── */}
       <header
-        className={`app-header w-full px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-50 backdrop-blur-xl`}
+        className={`w-full px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-50 backdrop-blur-md border-b transition-colors ${
+          isDark
+            ? "bg-[#070B18]/90 border-slate-800"
+            : "bg-white/90 border-slate-200"
+        }`}
       >
-        {/* Brand */}
-        <div className="flex items-center gap-3">
-          <div
-            className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-lg ${
-              isDark
-                ? "bg-gradient-to-tr from-cyan-500 to-emerald-400 shadow-cyan-500/25"
-                : "bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-blue-500/25"
-            }`}
-          >
-            <Hand
-              className={`w-5 h-5 ${isDark ? "text-slate-950" : "text-white"}`}
-            />
+        {/* Brand / Logo (Clickable button to reset/go to Live mode) */}
+        <button
+          onClick={() => setCurrentMode("live")}
+          className="flex items-center gap-3 text-left group cursor-pointer focus:outline-none transition-transform active:scale-95"
+          title="VisionHand Home / Live Tracking"
+          aria-label="VisionHand Home"
+        >
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#4F46E5] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
+            <Hand className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1
-                className={`text-base sm:text-lg font-black tracking-tight bg-clip-text text-transparent ${
-                  isDark
-                    ? "bg-gradient-to-r from-white via-slate-200 to-cyan-300"
-                    : "bg-gradient-to-r from-slate-900 via-blue-800 to-cyan-700"
-                }`}
-              >
+              <h1 className="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white">
                 VisionHand
               </h1>
-              <span
-                className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                  isDark
-                    ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/30"
-                    : "bg-blue-500/10 text-blue-600 border border-blue-500/25"
-                }`}
-              >
-                AI CORE v2.0
+              <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                v2.0
               </span>
             </div>
-            <p
-              className={`text-[11px] hidden sm:block ${isDark ? "text-slate-400" : "text-slate-500"}`}
-            >
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">
               Client-Side MediaPipe + OpenRouter Neural Vision
             </p>
           </div>
-        </div>
+        </button>
 
-        {/* Mode Switcher Nav Tabs */}
+        {/* Mode Switcher Nav Tabs (Solid Single Color for active button) */}
         <nav
           className={`flex items-center gap-1 p-1 rounded-xl border ${
             isDark
-              ? "bg-slate-900/90 border-slate-800"
-              : "bg-slate-100/90 border-slate-200"
+              ? "bg-[#0F172A] border-slate-800"
+              : "bg-slate-100 border-slate-200"
           }`}
         >
-          {MODES.map((m) => (
-            <button
-              key={m.id}
-              onClick={() => setCurrentMode(m.id)}
-              title={m.desc}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                currentMode === m.id
-                  ? isDark
-                    ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-md shadow-cyan-500/20"
-                    : "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md shadow-blue-500/25"
-                  : isDark
-                    ? "text-slate-400 hover:text-white hover:bg-slate-800"
-                    : "text-slate-500 hover:text-slate-900 hover:bg-white"
-              }`}
-            >
-              {m.icon}
-              <span className="hidden md:inline">{m.label}</span>
-            </button>
-          ))}
+          {MODES.map((m) => {
+            const isActiveMode = currentMode === m.id;
+            return (
+              <button
+                key={m.id}
+                onClick={() => setCurrentMode(m.id)}
+                title={m.desc}
+                className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer ${
+                  isActiveMode
+                    ? "bg-[#4F46E5] text-white shadow-sm"
+                    : isDark
+                      ? "text-slate-400 hover:text-white hover:bg-slate-800"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/70"
+                }`}
+              >
+                <span className={isActiveMode ? "text-white" : isDark ? "text-slate-400" : "text-slate-500"}>
+                  {m.icon}
+                </span>
+                <span className="hidden md:inline">{m.label}</span>
+              </button>
+            );
+          })}
         </nav>
 
         {/* Right Cluster: Privacy badge + Theme Toggle */}
         <div className="flex items-center gap-2">
           <div
-            className={`hidden lg:flex items-center gap-2 px-3 py-1 rounded-lg border text-xs font-mono ${
+            className={`hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono ${
               isDark
-                ? "bg-slate-900/60 border-slate-800 text-emerald-400"
-                : "bg-emerald-50 border-emerald-200 text-emerald-700"
+                ? "bg-[#0F172A] border-slate-800 text-slate-300"
+                : "bg-slate-100 border-slate-200 text-slate-700"
             }`}
           >
-            <ShieldCheck className="w-4 h-4" />
+            <ShieldCheck className="w-4 h-4 text-[#4F46E5]" />
             <span>100% Private</span>
           </div>
 
@@ -176,16 +170,16 @@ export function App() {
           <button
             onClick={toggleTheme}
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            className={`p-2 rounded-xl border transition-all ${
+            className={`p-2 rounded-xl border transition-all cursor-pointer shadow-sm ${
               isDark
-                ? "bg-slate-900 border-slate-800 text-amber-400 hover:bg-slate-800 hover:border-amber-500/40"
-                : "bg-white border-slate-200 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-300 shadow-sm"
+                ? "bg-[#0F172A] border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white"
+                : "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
             }`}
           >
             {isDark ? (
-              <Sun className="w-4 h-4" />
+              <Sun className="w-4 h-4 text-amber-400" />
             ) : (
-              <Moon className="w-4 h-4" />
+              <Moon className="w-4 h-4 text-slate-700" />
             )}
           </button>
         </div>
@@ -218,13 +212,19 @@ export function App() {
           {/* Picture-in-Picture Camera (non-live modes) */}
           {currentMode !== "live" && currentMode !== "object_scan" && (
             <div
-              className={`glass-panel p-3.5 rounded-2xl shadow-xl ${isDark ? "border-slate-800" : "border-slate-200"}`}
+              className={`p-3.5 rounded-2xl border shadow-sm ${
+                isDark
+                  ? "bg-[#0F172A] border-slate-800"
+                  : "bg-white border-slate-200"
+              }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <span
-                  className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isDark ? "text-cyan-400" : "text-indigo-600"}`}
+                  className={`text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 ${
+                    isDark ? "text-slate-300" : "text-slate-700"
+                  }`}
                 >
-                  <Camera className="w-3.5 h-3.5" /> Background Vision Pipeline
+                  <Camera className="w-3.5 h-3.5 text-[#4F46E5]" /> Background Vision Pipeline
                 </span>
                 <span
                   className={`text-[11px] font-mono ${isDark ? "text-slate-400" : "text-slate-500"}`}
@@ -233,7 +233,9 @@ export function App() {
                 </span>
               </div>
               <div
-                className={`w-full h-64 sm:h-72 min-h-[260px] rounded-xl overflow-hidden border relative ${isDark ? "bg-slate-950 border-slate-800" : "bg-slate-100 border-slate-200"}`}
+                className={`w-full h-64 sm:h-72 min-h-[260px] rounded-xl overflow-hidden border relative ${
+                  isDark ? "bg-[#070B18] border-slate-800" : "bg-slate-100 border-slate-200"
+                }`}
               >
                 <CameraView
                   videoRef={videoRef}
@@ -249,19 +251,25 @@ export function App() {
 
           {/* Gesture Telemetry */}
           <div
-            className={`glass-panel p-4 rounded-2xl shadow-xl flex flex-col gap-3 ${isDark ? "border-slate-800" : "border-slate-200"}`}
+            className={`p-4 rounded-2xl border shadow-sm flex flex-col gap-3 ${
+              isDark
+                ? "bg-[#0F172A] border-slate-800"
+                : "bg-white border-slate-200"
+            }`}
           >
             <div className="flex items-center justify-between">
               <h2
-                className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isDark ? "text-slate-300" : "text-slate-700"}`}
+                className={`text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 ${
+                  isDark ? "text-slate-300" : "text-slate-700"
+                }`}
               >
-                <Activity
-                  className={`w-4 h-4 ${isDark ? "text-cyan-400" : "text-indigo-500"}`}
-                />
+                <Activity className="w-4 h-4 text-[#4F46E5]" />
                 Gesture Recognition Telemetry
               </h2>
               <span
-                className={`text-xs font-mono ${isDark ? "text-cyan-400" : "text-indigo-600"}`}
+                className={`text-xs font-mono ${
+                  isDark ? "text-slate-400" : "text-slate-600"
+                }`}
               >
                 {frameData?.handCount
                   ? `${frameData.handCount} Active`
@@ -273,14 +281,18 @@ export function App() {
 
           {/* Gestures Cheat Sheet */}
           <div
-            className={`glass-panel p-4 rounded-2xl shadow-xl ${isDark ? "border-slate-800" : "border-slate-200"}`}
+            className={`p-4 rounded-2xl border shadow-sm ${
+              isDark
+                ? "bg-[#0F172A] border-slate-800"
+                : "bg-white border-slate-200"
+            }`}
           >
             <h3
-              className={`text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-1.5 ${isDark ? "text-slate-300" : "text-slate-700"}`}
+              className={`text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-1.5 ${
+                isDark ? "text-slate-300" : "text-slate-700"
+              }`}
             >
-              <Sparkles
-                className={`w-3.5 h-3.5 ${isDark ? "text-yellow-400" : "text-amber-500"}`}
-              />
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               Recognized Gestures Guide
             </h3>
             <div className="grid grid-cols-2 gap-2 text-xs font-mono">
@@ -299,7 +311,7 @@ export function App() {
                   className={`flex items-center gap-2 p-2 rounded-lg border ${
                     isDark
                       ? "bg-slate-900/60 border-slate-800 text-slate-300"
-                      : "bg-slate-50 border-slate-200 text-slate-600"
+                      : "bg-slate-50 border-slate-200 text-slate-700"
                   }`}
                 >
                   <span className="text-base">{emoji}</span>

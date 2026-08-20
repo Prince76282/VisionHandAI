@@ -18,7 +18,17 @@ export default {
           magenta: '#f72585',
           purple: '#7209b7',
         },
-        // Semantic theme tokens — mapped to CSS vars below
+        // Semantic theme tokens — mapped to CSS vars
+        primary: {
+          DEFAULT: "var(--primary)",
+          hover: "var(--primary-hover)",
+          dark: "var(--primary-dark)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          hover: "var(--secondary-hover)",
+          dark: "var(--secondary-dark)",
+        },
         foreground: "rgb(var(--color-foreground) / <alpha-value>)",
         muted: {
           foreground: "rgb(var(--color-muted-foreground) / <alpha-value>)",
@@ -30,9 +40,12 @@ export default {
         },
         border: "rgb(var(--color-border) / <alpha-value>)",
         accent: {
-          DEFAULT: "rgb(var(--color-accent) / <alpha-value>)",
+          DEFAULT: "var(--accent)",
           foreground: "rgb(var(--color-accent-foreground) / <alpha-value>)",
         },
+        success: "var(--success)",
+        warning: "var(--warning)",
+        error: "var(--error)",
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -46,8 +59,8 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { boxShadow: '0 0 15px rgba(6, 182, 212, 0.4)' },
-          '100%': { boxShadow: '0 0 30px rgba(6, 182, 212, 0.8)' },
+          '0%': { boxShadow: '0 0 15px rgba(79, 70, 229, 0.4)' },
+          '100%': { boxShadow: '0 0 30px rgba(79, 70, 229, 0.8)' },
         },
         slideInLeft: {
           '0%': { opacity: '0', transform: 'translateX(-12px)' },

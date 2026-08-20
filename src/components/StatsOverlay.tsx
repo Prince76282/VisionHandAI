@@ -33,41 +33,41 @@ export const StatsOverlay: React.FC<StatsOverlayProps> = ({ frameData }) => {
       <div
         className={`p-3.5 rounded-xl border transition-all ${
           face
-            ? "bg-slate-900/95 border-cyan-400/50 shadow-lg shadow-cyan-500/10"
-            : "bg-slate-950/60 border-slate-800 opacity-70"
+            ? "bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800"
+            : "bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800/60 opacity-80"
         }`}
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-            <UserCheck className="w-4 h-4 text-cyan-400" /> Facial Biometrics & Age
+          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <UserCheck className="w-4 h-4 text-[#4F46E5]" /> Facial Biometrics & Age
           </span>
-          <span className="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/60">
+          <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
             {face ? `${Math.round(face.ageConfidence * 100)}% Conf` : "Scanning"}
           </span>
         </div>
 
         {face ? (
           <div className="grid grid-cols-2 gap-2 text-xs">
-            <div className="p-2 rounded-lg bg-slate-950 border border-slate-800">
-              <span className="text-[10px] text-slate-400 uppercase font-mono">Estimated Age</span>
-              <div className="text-sm font-bold text-cyan-300 mt-0.5">{face.estimatedAge}</div>
+            <div className="p-2 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono">Estimated Age</span>
+              <div className="text-sm font-bold text-[#4F46E5] dark:text-indigo-400 mt-0.5">{face.estimatedAge}</div>
             </div>
 
-            <div className="p-2 rounded-lg bg-slate-950 border border-slate-800">
-              <span className="text-[10px] text-slate-400 uppercase font-mono">Expression / Mood</span>
-              <div className="text-sm font-bold text-pink-300 mt-0.5">{face.emotion}</div>
+            <div className="p-2 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono">Expression / Mood</span>
+              <div className="text-sm font-bold text-slate-900 dark:text-white mt-0.5">{face.emotion}</div>
             </div>
 
-            <div className="col-span-2 flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-300">
-              <span>Symmetry: <strong className="text-emerald-400">{Math.round(face.symmetry * 100)}%</strong></span>
-              <span>Pose: <strong className="text-cyan-400">{face.headPose.yaw}°</strong></span>
-              <span>Eyes: <strong className={face.eyesBlinking.left || face.eyesBlinking.right ? "text-pink-400" : "text-slate-400"}>
+            <div className="col-span-2 flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-[11px] font-mono text-slate-600 dark:text-slate-400">
+              <span>Symmetry: <strong className="text-emerald-600 dark:text-emerald-400">{Math.round(face.symmetry * 100)}%</strong></span>
+              <span>Pose: <strong className="text-slate-800 dark:text-slate-200">{face.headPose.yaw}°</strong></span>
+              <span>Eyes: <strong className={face.eyesBlinking.left || face.eyesBlinking.right ? "text-amber-600 dark:text-amber-400" : "text-slate-600 dark:text-slate-400"}>
                 {face.eyesBlinking.left && face.eyesBlinking.right ? "Blinking" : face.eyesBlinking.left ? "Left Wink" : face.eyesBlinking.right ? "Right Wink" : "Open"}
               </strong></span>
             </div>
           </div>
         ) : (
-          <div className="text-xs text-slate-400 font-mono py-2 text-center">
+          <div className="text-xs text-slate-500 dark:text-slate-400 font-mono py-2 text-center">
             Position face within camera view for biometric detection
           </div>
         )}
@@ -79,25 +79,25 @@ export const StatsOverlay: React.FC<StatsOverlayProps> = ({ frameData }) => {
         <div
           className={`p-3 rounded-xl border transition-all ${
             leftHand && leftHand.event !== "NONE"
-              ? "bg-slate-900/90 border-cyan-500/50 shadow-md shadow-cyan-500/10"
-              : "bg-slate-950/60 border-slate-800 opacity-70"
+              ? "bg-slate-50 dark:bg-slate-900 border-slate-300 dark:border-slate-700 shadow-sm"
+              : "bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800/60 opacity-80"
           }`}
         >
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Hand className="w-3.5 h-3.5" /> Left Hand
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+              <Hand className="w-3.5 h-3.5 text-[#4F46E5]" /> Left Hand
             </span>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/60">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
               {leftHand ? `${Math.round(leftHand.confidence * 100)}%` : "None"}
             </span>
           </div>
 
           <div className="flex items-center gap-2.5">
-            <div className="text-xl p-1.5 rounded-lg bg-slate-900 border border-slate-800">
+            <div className="text-xl p-1.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
               {GESTURE_ICONS[leftHand?.event || "NONE"]}
             </div>
             <div className="flex-1">
-              <div className="text-xs font-bold text-white font-mono">
+              <div className="text-xs font-bold text-slate-900 dark:text-white font-mono">
                 {leftHand?.event ? leftHand.event.replace("_", " ") : "NO HAND"}
               </div>
             </div>
@@ -108,25 +108,25 @@ export const StatsOverlay: React.FC<StatsOverlayProps> = ({ frameData }) => {
         <div
           className={`p-3 rounded-xl border transition-all ${
             rightHand && rightHand.event !== "NONE"
-              ? "bg-slate-900/90 border-pink-500/50 shadow-md shadow-pink-500/10"
-              : "bg-slate-950/60 border-slate-800 opacity-70"
+              ? "bg-slate-50 dark:bg-slate-900 border-slate-300 dark:border-slate-700 shadow-sm"
+              : "bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800/60 opacity-80"
           }`}
         >
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-bold text-pink-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Hand className="w-3.5 h-3.5" /> Right Hand
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+              <Hand className="w-3.5 h-3.5 text-[#4F46E5]" /> Right Hand
             </span>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-pink-950/80 text-pink-300 border border-pink-800/60">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
               {rightHand ? `${Math.round(rightHand.confidence * 100)}%` : "None"}
             </span>
           </div>
 
           <div className="flex items-center gap-2.5">
-            <div className="text-xl p-1.5 rounded-lg bg-slate-900 border border-slate-800">
+            <div className="text-xl p-1.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
               {GESTURE_ICONS[rightHand?.event || "NONE"]}
             </div>
             <div className="flex-1">
-              <div className="text-xs font-bold text-white font-mono">
+              <div className="text-xs font-bold text-slate-900 dark:text-white font-mono">
                 {rightHand?.event ? rightHand.event.replace("_", " ") : "NO HAND"}
               </div>
             </div>
@@ -135,21 +135,21 @@ export const StatsOverlay: React.FC<StatsOverlayProps> = ({ frameData }) => {
       </div>
 
       {/* JSON Event Stream Debug Drawer */}
-      <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+      <div className="bg-slate-50 dark:bg-slate-900/80 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <Code className="w-3.5 h-3.5 text-cyan-400" /> Standardized Event Bus
+          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <Code className="w-3.5 h-3.5 text-[#4F46E5]" /> Standardized Event Bus
           </span>
           <button
             onClick={() => setShowJsonRaw((s) => !s)}
-            className="text-xs text-cyan-400 hover:text-cyan-300 font-mono underline cursor-pointer"
+            className="text-xs text-[#4F46E5] dark:text-indigo-400 hover:underline font-mono cursor-pointer"
           >
             {showJsonRaw ? "Collapse JSON" : "View Live JSON"}
           </button>
         </div>
 
         {showJsonRaw && (
-          <div className="mt-2 p-2.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[11px] text-cyan-300 overflow-x-auto max-h-36">
+          <div className="mt-2 p-2.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-[11px] text-slate-800 dark:text-indigo-300 overflow-x-auto max-h-36">
             <pre>
               {latestEvent
                 ? JSON.stringify(
